@@ -1,0 +1,24 @@
+[Unit]
+Description=RClone Service
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
+KillMode=none
+RestartSec=5
+ExecStart=/usr/bin/rclone mount gdrive: /mnt/Gdrive \
+--allow-other \
+--dir-cache-time 1000h \
+--log-level INFO \
+--log-file /tmp/rclone_mount.log \
+--poll-interval 15s \
+--umask 000 \
+--buffer-size 32M \
+--max-read-ahead 128k \
+--vfs-read-chunk-size 128M \
+--vfs-read-chunk-size-limit 256M
+ExecStop=/bin/fusermount -uzq /mnt/Gdrive
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
