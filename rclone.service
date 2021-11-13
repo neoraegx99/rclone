@@ -7,7 +7,7 @@ Type=notify
 Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
 KillMode=none
 RestartSec=5
-ExecStart=/usr/bin/rclone mount gdrive: /mnt/Gdrive \
+ExecStart=/usr/bin/rclone mount Gdrive: /mnt/Gdrive \
 --allow-other \
 --dir-cache-time 1000h \
 --log-level INFO \
